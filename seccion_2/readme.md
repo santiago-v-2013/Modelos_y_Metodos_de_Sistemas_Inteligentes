@@ -1,164 +1,160 @@
-# README: Ejemplos de Redes Neuronales con Keras y PyTorch
+# Sección 2: Clasificación y Regresión con Redes Neuronales
 
-Este README proporciona una explicación detallada de los notebooks de ejemplo de redes neuronales implementados con Keras y PyTorch que se encuentran en la carpeta `seccion_2`. Estos notebooks forman parte del módulo "Modelos y Métodos de Sistemas Inteligentes" de la Maestría en Análisis de Datos y Sistemas Inteligentes.
+En esta sección, encontrarás ejemplos prácticos sobre cómo implementar redes neuronales para resolver problemas de clasificación y regresión utilizando las bibliotecas Keras y PyTorch. Estos notebooks están diseñados para facilitar la comprensión del código y su ejecución.
 
 ## Contenido
 
-* [Introducción](#introducción)
-* [Requisitos previos](#requisitos-previos)
-* [Notebook de Keras](#notebook-de-keras)
-    * [Clasificación con Iris (Keras)](#clasificación-con-iris-keras)
-    * [Regresión con California Housing (Keras)](#regresión-con-california-housing-keras)
-* [Notebook de PyTorch](#notebook-de-pytorch)
-    * [Clasificación con Iris (PyTorch)](#clasificación-con-iris-pytorch)
-    * [Regresión con California Housing (PyTorch)](#regresión-con-california-housing-pytorch)
-* [Comparación entre Keras y PyTorch](#comparación-entre-keras-y-pytorch)
-* [Referencias](#referencias)
+1. [Ejemplo_con_keras_para_clasificacion_y_regresion.ipynb](Ejemplo_con_keras_para_clasificacion_y_regresion.ipynb)
+2. [Ejemplo_con_pytorch_para_clasificacion_y_regresion.ipynb](Ejemplo_con_pytorch_para_clasificacion_y_regresion.ipynb)
 
-## Introducción
+---
 
-Los notebooks en esta sección están diseñados para proporcionar ejemplos prácticos de implementación de redes neuronales para tareas de clasificación y regresión utilizando dos de los frameworks más populares: Keras (con TensorFlow como backend) y PyTorch. Cada notebook demuestra cómo:
+### Ejemplo 1: Clasificación y Regresión usando Keras
 
-* Cargar y preprocesar datos
-* Crear y entrenar modelos de redes neuronales
-* Evaluar el rendimiento de los modelos
-* Visualizar los resultados
+#### Descripción
 
-Los ejemplos utilizan conjuntos de datos estándar:
+En este notebook, se utiliza la biblioteca Keras para construir y entrenar redes neuronales que abordan tanto problemas de clasificación como de regresión. Incluye ejemplos paso a paso, desde la carga de datos hasta la evaluación del modelo.
 
-* **Iris Dataset:** Un conjunto de datos clásico para clasificación multiclase.
-* **California Housing Dataset:** Un conjunto de datos para regresión sobre precios de viviendas.
+#### Cómo usar el notebook
 
-## Requisitos previos
+1. **Importar las librerías necesarias**:
+    ```python
+    import numpy as np
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Dense
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler
+    ```
+    - `tensorflow.keras.models.Sequential`: Permite construir un modelo de red neuronal secuencial.
+    - `tensorflow.keras.layers.Dense`: Crea capas densas completamente conectadas.
+    - `sklearn.model_selection.train_test_split`: Divide el conjunto de datos en entrenamiento y prueba.
+    - `sklearn.preprocessing.StandardScaler`: Escala las características para mejorar la convergencia del modelo.
 
-Para ejecutar los notebooks, necesitarás:
+2. **Cargar y preprocesar los datos**:
+    ```python
+    data = pd.read_csv('ruta/del/archivo.csv')
+    X = data.drop('target', axis=1)
+    y = data['target']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
 
-* Python 3.6+
-* Jupyter Notebook o JupyterLab
-* Bibliotecas:
-    * NumPy
-    * Pandas
-    * Matplotlib
-    * Scikit-learn
-    * TensorFlow 2.x (para el notebook de Keras)
-    * PyTorch (para el notebook de PyTorch)
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+    ```
+    - `data.drop('target', axis=1)`: Separa las características independientes (X) del objetivo (y).
+    - `train_test_split`: Divide los datos en 70% para entrenamiento y 30% para prueba.
+    - `StandardScaler`: Normaliza las características para que tengan media 0 y desviación estándar 1.
 
-Puedes instalar las dependencias necesarias con:
+3. **Definir y entrenar el modelo**:
+    ```python
+    model = Sequential()
+    model.add(Dense(16, input_dim=X_train.shape[1], activation='relu'))
+    model.add(Dense(8, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))
 
-```bash
-pip install numpy pandas matplotlib scikit-learn tensorflow torch torchvision
-```
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.fit(X_train, y_train, epochs=50, batch_size=10, verbose=1)
+    ```
+    - La red tiene:
+        - 16 neuronas en la primera capa oculta.
+        - 8 neuronas en la segunda capa oculta.
+        - Una salida con activación Sigmoid para problemas binarios.
+    - `model.compile`: Configura la función de pérdida, el optimizador y las métricas de evaluación.
+    - `model.fit`: Entrena el modelo con 50 épocas y un tamaño de lote de 10.
 
-## Notebook de Keras
+4. **Evaluar el modelo**:
+    ```python
+    _, accuracy = model.evaluate(X_test, y_test)
+    print(f"Accuracy: {accuracy * 100:.2f}%")
+    ```
+    - Evalúa el modelo en el conjunto de prueba y calcula la precisión.
 
-### Estructura General
+---
 
-El notebook de Keras (`Example_with_keras_for_classification_and_regression.ipynb`) está organizado en dos partes principales:
+### Ejemplo 2: Clasificación y Regresión usando PyTorch
 
-* Clasificación con el dataset Iris
-* Regresión con el dataset de viviendas de California
+#### Descripción
 
-Cada parte incluye las siguientes secciones:
+En este notebook, se utiliza PyTorch para construir y entrenar redes neuronales que abordan problemas de clasificación y regresión. Presenta un enfoque detallado para definir el modelo, entrenarlo y evaluarlo.
 
-* Carga y visualización de datos
-* Limpieza de datos
-* Selección de características
-* División en conjuntos de entrenamiento y prueba
-* Definición del modelo
-* Entrenamiento del modelo
-* Evaluación del modelo
+#### Cómo usar el notebook
 
-### Clasificación con Iris (Keras)
+1. **Importar las librerías necesarias**:
+    ```python
+    import torch
+    import torch.nn as nn
+    import torch.optim as optim
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler
+    ```
+    - `torch`: Biblioteca principal de PyTorch que incluye tensores y funciones de aprendizaje profundo.
+    - `torch.nn`: Módulo para crear arquitecturas de redes neuronales.
+    - `torch.optim`: Módulo para configuraciones de optimización.
 
-#### Carga y Visualización de Datos
+2. **Preparar los datos de entrada**:
+    ```python
+    data = pd.read_csv('ruta/del/archivo.csv')
+    X = data.drop('target', axis=1)
+    y = data['target']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
 
-```python
-# Importar bibliotecas
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.datasets import load_iris
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+    ```
+    - Similar al preprocesamiento en Keras, se divide y escala el conjunto de datos.
 
-# Cargar el dataset Iris
-iris = load_iris()
-data = iris.data
-target = iris.target # Índices numéricos (0, 1, 2)
-feature_names = iris.feature_names
-target_names = iris.target_names # Nombres ('setosa', 'versicolor', 'virginica')
+3. **Definir el modelo en PyTorch**:
+    ```python
+    class NeuralNet(nn.Module):
+        def __init__(self, input_size):
+            super(NeuralNet, self).__init__()
+            self.fc1 = nn.Linear(input_size, 16)
+            self.relu = nn.ReLU()
+            self.fc2 = nn.Linear(16, 8)
+            self.fc3 = nn.Linear(8, 1)
+            self.sigmoid = nn.Sigmoid()
 
-# Convertir a DataFrame para facilitar manipulación inicial
-df = pd.DataFrame(data, columns=feature_names)
-# Es útil mantener el índice numérico para Keras (si se usa sparse loss)
-# y el nombre para referencia/visualización.
-df['target_idx'] = target
-df['target_name'] = df['target_idx'].apply(lambda x: target_names[x])
+        def forward(self, x):
+            x = self.relu(self.fc1(x))
+            x = self.relu(self.fc2(x))
+            x = self.sigmoid(self.fc3(x))
+            return x
 
-# (Aquí normalmente se añadiría código de visualización, p.ej.)
-# print(df.head())
-# pd.plotting.scatter_matrix(df[feature_names], c=df['target_idx'], figsize=(10, 10))
-# plt.show()
-```
+    model = NeuralNet(X_train.shape[1])
+    ```
+    - La arquitectura incluye:
+        - Una capa oculta con 16 neuronas.
+        - Una segunda capa oculta con 8 neuronas.
+        - Una salida con activación Sigmoid.
 
-Esta celda carga el dataset Iris utilizando Scikit-learn y lo convierte a un DataFrame de pandas para facilitar su manipulación. Se asume que también se visualizaría la distribución de características (por ejemplo, usando una matriz de dispersión como se sugiere en el código comentado) para entender mejor las relaciones entre variables y la separabilidad de las clases.
+4. **Entrenar el modelo**:
+    ```python
+    criterion = nn.BCELoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.01)
 
-#### Limpieza y Preparación de Datos
+    for epoch in range(50):
+        outputs = model(torch.from_numpy(X_train).float())
+        loss = criterion(outputs, torch.from_numpy(y_train).float())
 
-```python
-# Asumiendo que 'stats' de scipy ya fue importado (from scipy import stats)
-# y que 'df' es el DataFrame del paso anterior con las columnas 'feature_names'.
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+    ```
+    - La función de pérdida utilizada es `BCELoss` (entropía cruzada binaria).
+    - Se entrena durante 50 épocas.
 
-# Eliminar outliers basados en Z-score (este paso puede ser opcional para Iris,
-# pero es útil como ejemplo general).
-z_scores = np.abs(stats.zscore(df[feature_names]))
+5. **Evaluar el modelo**:
+    ```python
+    with torch.no_grad():
+        y_pred = model(torch.from_numpy(X_test).float()).round()
+        accuracy = (y_pred.numpy() == y_test).mean()
+        print(f"Accuracy: {accuracy * 100:.2f}%")
+    ```
+    - Se calcula la precisión redondeando las predicciones para comparar con los valores reales.
 
-# Crear un nuevo DataFrame manteniendo solo las filas sin outliers
-# (donde el Z-score absoluto es < 3 para todas las características).
-# Usar .copy() para evitar advertencias de SettingWithCopyWarning.
-df_cleaned = df[(z_scores < 3).all(axis=1)].copy()
+---
 
-print(f"Filas originales: {df.shape[0]}")
-print(f"Filas después de quitar outliers: {df_cleaned.shape[0]}")
+## Conclusión
 
-# Verificar si hay valores vacíos en el DataFrame limpio
-print("\nValores vacíos después de limpieza:")
-print(df_cleaned.isnull().sum())
-# Si hubiera valores vacíos, aquí se aplicarían estrategias como
-# df_cleaned.dropna(inplace=True) o imputación.
-```
-
-Esta celda demuestra cómo eliminar valores atípicos (_outliers_) utilizando el método del `Z-score`. Se consideran outliers aquellos puntos cuyos valores en alguna característica se desvían más de 3 desviaciones estándar de la media. También se verifica si existen valores faltantes (`NaN`) en el conjunto de datos resultante (`df_cleaned`). Este paso es **crucial** para asegurar la calidad de los datos que se usarán para entrenar el modelo, aunque para el dataset **Iris estándar**, podría no ser estrictamente necesario.
-
-#### Selección de Características
-
-```python
-# Asumiendo que 'SelectKBest' y 'f_classif' han sido importados de sklearn.feature_selection
-# Asumiendo que 'np' es numpy y 'df_cleaned', 'feature_names', 'target_idx' existen del paso anterior.
-
-# Usar los datos limpios del paso anterior
-X = df_cleaned[feature_names].values
-y = df_cleaned['target_idx'].values # Usar el índice numérico limpio
-
-# Seleccionar las k=2 características más relevantes usando ANOVA F-test (f_classif)
-selector = SelectKBest(score_func=f_classif, k=2)
-
-# Ajustar el selector a los datos y transformar X para obtener solo las características seleccionadas
-X_new = selector.fit_transform(X, y)
-
-# Obtener los nombres de las características seleccionadas (opcional, para información)
-selected_features_indices = selector.get_support(indices=True)
-selected_features = np.array(feature_names)[selected_features_indices]
-
-print(f"Características seleccionadas: {selected_features}")
-print(f"Forma de los datos antes de selección: {X.shape}")
-print(f"Forma de los datos después de selección (X_new): {X_new.shape}")
-```
-
-Esta celda selecciona las características más relevantes para el modelo utilizando el método `SelectKBest` con la función de puntuación `f_classif` (adecuada para clasificación). Se configura para conservar las `k=2` características más importantes según esta prueba estadística. El resultado, `X_new`, contiene únicamente los datos correspondientes a estas dos características seleccionadas y será el que se use en los siguientes pasos.
-
-
-
-
-
-
-
-
+Estos notebooks proporcionan ejemplos prácticos y detallados de cómo implementar redes neuronales con Keras y PyTorch para resolver problemas de clasificación y regresión. Puedes modificar los parámetros y configuraciones para explorar diferentes escenarios y optimizar los resultados.
