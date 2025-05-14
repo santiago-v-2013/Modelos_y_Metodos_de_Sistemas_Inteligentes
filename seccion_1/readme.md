@@ -1,129 +1,98 @@
-# Sección 1: Lógica Fuzzy y Árboles de Decisión
+# Repositorio de Ejemplos de Modelado de la sección 1
 
-En esta sección, encontrarás ejemplos prácticos sobre la implementación de lógica fuzzy y árboles de decisión. Estos ejemplos están desarrollados en Jupyter Notebooks para facilitar la comprensión y ejecución del código.
+Este repositorio contiene una colección de scripts de Jupyter Notebooks (`.ipynb`) que demuestran diversas técnicas de modelado de datos. Cada ejemplo está diseñado para ser educativo, mostrando paso a paso cómo aplicar diferentes algoritmos a conjuntos de datos específicos, con un enfoque en la estructura clara y la interpretabilidad.
 
-## Contenido
+## Motivación
 
-1. [Ejemplo_Arboles_de_decision.ipynb](Ejemplo_Arboles_de_decision.ipynb)
-2. [Ejemplo_Logica_Fuzzy.ipynb](Ejemplo_Logica_Fuzzy.ipynb)
+El objetivo principal de estos ejemplos es proporcionar una guía práctica y bien documentada para:
+* Implementar y comprender algoritmos de lógica difusa.
+* Implementar y comprender árboles de decisión y ensambles como Random Forest.
+* Comparar diferentes enfoques de modelado para un mismo problema.
 
-### Ejemplo 1: Árboles de Decisión
+## Estructura General de los Ejemplos
 
-#### Descripción
+Cada ejemplo en este repositorio sigue una estructura estandarizada para facilitar su comprensión y replicación:
 
-Este notebook presenta un ejemplo de cómo construir y utilizar un árbol de decisión para la clasificación de datos. Los árboles de decisión son una herramienta poderosa para el análisis de datos y la toma de decisiones.
+1.  **Título y Objetivo:**
+    * Nombre claro del ejercicio y la técnica principal utilizada.
+    * Descripción de la disciplina y el objetivo principal del notebook.
+2.  **Carga de Librerías y Configuración Inicial:**
+    * Importación de todas las bibliotecas necesarias.
+    * Configuraciones globales para visualizaciones o recarga de módulos.
+3.  **Funciones Personalizadas:**
+    * Definición de funciones auxiliares para modularizar el código (carga de datos, entrenamiento, visualización, etc.).
+    * Cada función incluye una descripción detallada de su objetivo, parámetros y valor de retorno.
+4.  **Desarrollo del Ejercicio / Análisis Principal:**
+    * Subsecciones detalladas que cubren:
+        * Carga y exploración inicial de datos.
+        * Preprocesamiento (si aplica).
+        * Definición, entrenamiento y evaluación del modelo.
+        * Visualización de resultados (gráficos del modelo, importancia de características, etc.).
+        * Análisis de ejemplos específicos.
+5.  **Conclusiones del Ejercicio:**
+    * Resumen de los hallazgos clave.
+    * Discusión sobre las fortalezas y debilidades del modelo/técnica aplicada.
+    * Aprendizajes generales y posibles mejoras o trabajos futuros.
+    * En los ejemplos comparativos, se incluye una sección dedicada a la comparación detallada de los modelos.
 
-#### Cómo usar el notebook
+## Ejemplos Incluidos
 
-1. **Importar las librerías necesarias**: 
-    ```python
-    import pandas as pd
-    from sklearn.model_selection import train_test_split
-    from sklearn.tree import DecisionTreeClassifier
-    from sklearn import metrics
-    ```
-    Estas librerías son esenciales para la manipulación de datos (`pandas`), la división de datos en conjuntos de entrenamiento y prueba (`train_test_split`), la creación del modelo de árbol de decisión (`DecisionTreeClassifier`) y la evaluación del modelo (`metrics`).
+A continuación, se listan los principales ejemplos desarrollados hasta la fecha:
 
-2. **Cargar el conjunto de datos**:
-    ```python
-    data = pd.read_csv('ruta/del/archivo.csv')
-    ```
-    Aquí se carga el conjunto de datos que se utilizará. Modifica `'ruta/del/archivo.csv'` con la ruta a tu archivo de datos.
+### 1. Lógica Difusa
 
-3. **Preprocesar los datos**:
-    ```python
-    X = data.drop('target', axis=1)
-    y = data['target']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
-    ```
-    - `X = data.drop('target', axis=1)`: Separa las características (X) eliminando la columna 'target'.
-    - `y = data['target']`: Asigna la columna 'target' a la variable objetivo (y).
-    - `X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)`: Divide los datos en conjuntos de entrenamiento y prueba (70% entrenamiento, 30% prueba).
+* **`Ejemplo_problema_de_la_propina_fuzzy.ipynb`**
+    * **Descripción:** Implementa un sistema de control de lógica difusa para resolver el clásico "problema de la propina". Se basa en la calidad del servicio y la comida para determinar el porcentaje de propina.
+    * **Dataset:** No aplica (problema sintético basado en reglas).
+    * **Técnicas:** Lógica Difusa, `scikit-fuzzy`, Antecedentes, Consecuentes, Funciones de Pertenencia (automáticas y personalizadas), Reglas Difusas, Simulación de Control.
+    * **Puntos Clave:** Definición de variables lingüísticas, creación de reglas intuitivas, visualización de funciones de pertenencia y proceso de inferencia.
 
-4. **Crear y entrenar el modelo**:
-    ```python
-    clf = DecisionTreeClassifier()
-    clf = clf.fit(X_train, y_train)
-    ```
-    - `clf = DecisionTreeClassifier()`: Crea una instancia del clasificador de árbol de decisión.
-    - `clf = clf.fit(X_train, y_train)`: Entrena el modelo con los datos de entrenamiento.
+* **`Ejemplo_planta_versicolor_fuzzy.ipynb`**
+    * **Descripción:** Construye un sistema de control de lógica difusa para clasificar las especies de flores del dataset Iris basado en sus características (longitud y ancho de sépalos y pétalos).
+    * **Dataset:** Iris (`sklearn.datasets.load_iris`).
+    * **Técnicas:** Lógica Difusa, `scikit-fuzzy`, Clasificación, Funciones de Pertenencia Triangulares, Reglas Difusas para Clasificación.
+    * **Puntos Clave:** Aplicación de lógica difusa a un problema de clasificación real, definición de reglas para distinguir entre clases, evaluación de la precisión del sistema difuso. Se corrigió el número de reglas para un funcionamiento adecuado.
 
-5. **Hacer predicciones y evaluar el modelo**:
-    ```python
-    y_pred = clf.predict(X_test)
-    print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
-    ```
-    - `y_pred = clf.predict(X_test)`: Realiza predicciones con el conjunto de prueba.
-    - `print("Accuracy:", metrics.accuracy_score(y_test, y_pred))`: Imprime la precisión del modelo comparando las predicciones con los valores reales.
+* **`Ejemplo_control_fuzzy_simple.ipynb`**
+    * **Descripción:** Define un sistema de control difuso simple para determinar la velocidad de un ventilador en función de la temperatura y la humedad ambiente.
+    * **Dataset:** No aplica (problema sintético basado en reglas).
+    * **Técnicas:** Lógica Difusa, `scikit-fuzzy`, Visualización de Funciones de Pertenencia y Salida de Simulación.
+    * **Puntos Clave:** Ejemplo conciso para ilustrar la definición de variables, funciones de pertenencia, reglas y la simulación de un sistema de control con entradas específicas.
 
-### Ejemplo 2: Lógica Fuzzy
+### 2. Árboles de Decisión y Ensambles
 
-#### Descripción
+* **`Ejemplo_planta_versicolor_AD.ipynb`**
+    * **Descripción:** Implementa un clasificador de Árbol de Decisión único para clasificar las especies de flores del dataset Iris.
+    * **Dataset:** Iris (`sklearn.datasets.load_iris`).
+    * **Técnicas:** Árbol de Decisión (`DecisionTreeClassifier`), `train_test_split`, `export_text` (para reglas), `plot_tree` (para visualización), evaluación de precisión.
+    * **Puntos Clave:** Énfasis en la interpretabilidad del árbol (visualización y reglas textuales), análisis de predicciones para ejemplos específicos mostrando la clase real.
 
-Este notebook proporciona un ejemplo de cómo implementar lógica fuzzy para la toma de decisiones en sistemas inciertos. La lógica fuzzy es una extensión de la lógica booleana que maneja valores de verdad parciales.
+* **`Ejemplo_diagnostico_de_cancer_AD.ipynb`**
+    * **Descripción:** Construye un ensamble de Árboles de Decisión (Random Forest) para predecir si un tumor de mama es maligno o benigno.
+    * **Dataset:** Breast Cancer Wisconsin (`sklearn.datasets.load_breast_cancer`).
+    * **Técnicas:** Random Forest (`RandomForestClassifier`), `train_test_split`, Métricas de Evaluación (Precisión, Reporte de Clasificación, Matriz de Confusión), Importancia de Características, Visualización de un árbol individual del ensamble.
+    * **Puntos Clave:** Introducción a los ensambles, evaluación más completa del rendimiento, interpretabilidad a través de la importancia de características.
 
-#### Cómo usar el notebook
+* **`Ejemplo_vino_AD.ipynb`**
+    * **Descripción:** Compara directamente el rendimiento y las características de un Árbol de Decisión único frente a un ensamble Random Forest en la tarea de clasificar tipos de vino.
+    * **Dataset:** Wine (`sklearn.datasets.load_wine`).
+    * **Técnicas:** `DecisionTreeClassifier`, `RandomForestClassifier`, comparación de métricas, interpretabilidad, robustez y sobreajuste.
+    * **Puntos Clave:** Discusión detallada de las ventajas y desventajas de cada modelo, ayudando a decidir cuál usar según el contexto del problema.
 
-1. **Importar las librerías necesarias**:
-    ```python
-    import numpy as np
-    import skfuzzy as fuzz
-    from skfuzzy import control as ctrl
-    ```
-    Estas librerías permiten trabajar con números difusos y reglas de lógica fuzzy (`skfuzzy`).
+## Requisitos
 
-2. **Definir las variables fuzzy**:
-    ```python
-    calidad = ctrl.Antecedent(np.arange(0, 11, 1), 'calidad')
-    servicio = ctrl.Antecedent(np.arange(0, 11, 1), 'servicio')
-    propina = ctrl.Consequent(np.arange(0, 26, 1), 'propina')
-    ```
-    - `calidad = ctrl.Antecedent(np.arange(0, 11, 1), 'calidad')`: Define la variable fuzzy 'calidad' con un rango de 0 a 10.
-    - `servicio = ctrl.Antecedent(np.arange(0, 11, 1), 'servicio')`: Define la variable fuzzy 'servicio' con un rango de 0 a 10.
-    - `propina = ctrl.Consequent(np.arange(0, 26, 1), 'propina')`: Define la variable fuzzy 'propina' con un rango de 0 a 25.
+Para ejecutar estos ejemplos, necesitará tener Python 3 instalado, junto con las siguientes bibliotecas principales:
 
-3. **Definir las funciones de membresía**:
-    ```python
-    calidad.automf(3)
-    servicio.automf(3)
-    propina['baja'] = fuzz.trimf(propina.universe, [0, 0, 13])
-    propina['media'] = fuzz.trimf(propina.universe, [0, 13, 25])
-    propina['alta'] = fuzz.trimf(propina.universe, [13, 25, 25])
-    ```
-    - `calidad.automf(3)`: Genera automáticamente tres niveles de calidad (baja, media, alta).
-    - `servicio.automf(3)`: Genera automáticamente tres niveles de servicio (baja, media, alta).
-    - `propina['baja'] = fuzz.trimf(propina.universe, [0, 0, 13])`: Define la función de membresía 'baja' para la propina.
-    - `propina['media'] = fuzz.trimf(propina.universe, [0, 13, 25])`: Define la función de membresía 'media' para la propina.
-    - `propina['alta'] = fuzz.trimf(propina.universe, [13, 25, 25])`: Define la función de membresía 'alta' para la propina.
+* `numpy`
+* `pandas`
+* `scikit-learn`
+* `scikit-fuzzy` (para los ejemplos de lógica difusa)
+* `matplotlib`
+* `seaborn`
+* `jupyter` (si desea trabajar con los archivos `.ipynb` o convertir los `.py` a formato notebook)
+* `jupytext` (opcional, para la conversión entre formatos `.py` y `.ipynb`)
+* `graphviz` (opcional, si desea usar la función `export_graphviz` para visualizaciones avanzadas de árboles; requiere instalación a nivel de sistema operativo además del paquete Python).
 
-4. **Definir las reglas fuzzy**:
-    ```python
-    regla1 = ctrl.Rule(calidad['poor'] | servicio['poor'], propina['baja'])
-    regla2 = ctrl.Rule(servicio['average'], propina['media'])
-    regla3 = ctrl.Rule(servicio['good'] | calidad['good'], propina['alta'])
-    ```
-    - `regla1 = ctrl.Rule(calidad['poor'] | servicio['poor'], propina['baja'])`: Si la calidad o el servicio son bajos, la propina es baja.
-    - `regla2 = ctrl.Rule(servicio['average'], propina['media'])`: Si el servicio es promedio, la propina es media.
-    - `regla3 = ctrl.Rule(servicio['good'] | calidad['good'], propina['alta'])`: Si el servicio o la calidad son buenos, la propina es alta.
-
-5. **Crear y simular el sistema de control fuzzy**:
-    ```python
-    propina_ctrl = ctrl.ControlSystem([regla1, regla2, regla3])
-    propina_simulacion = ctrl.ControlSystemSimulation(propina_ctrl)
-    propina_simulacion.input['calidad'] = 6.5
-    propina_simulacion.input['servicio'] = 9.8
-    propina_simulacion.compute()
-    print(propina_simulacion.output['propina'])
-    ```
-    - `propina_ctrl = ctrl.ControlSystem([regla1, regla2, regla3])`: Crea el sistema de control fuzzy con las reglas definidas.
-    - `propina_simulacion = ctrl.ControlSystemSimulation(propina_ctrl)`: Crea una simulación del sistema de control.
-    - `propina_simulacion.input['calidad'] = 6.5`: Asigna un valor de 6.5 a la calidad.
-    - `propina_simulacion.input['servicio'] = 9.8`: Asigna un valor de 9.8 al servicio.
-    - `propina_simulacion.compute()`: Ejecuta la simulación para calcular la propina.
-    - `print(propina_simulacion.output['propina'])`: Imprime el valor de la propina calculada.
-
-## Conclusión
-
-Estos notebooks proporcionan ejemplos prácticos y detallados de cómo implementar y utilizar modelos de árboles de decisión y lógica fuzzy. Puedes modificar los parámetros y reglas según tus necesidades específicas para explorar diferentes escenarios y resultados.
-
-¡Esperamos que encuentres útiles estos ejemplos en tu aprendizaje y aplicación de sistemas inteligentes!
+Puede instalar la mayoría de estas dependencias usando pip:
+```bash
+pip install numpy pandas scikit-learn scikit-fuzzy matplotlib seaborn jupyter jupytext graphviz
