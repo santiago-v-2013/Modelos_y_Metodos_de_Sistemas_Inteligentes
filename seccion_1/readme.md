@@ -79,6 +79,14 @@ A continuación, se listan los principales ejemplos desarrollados hasta la fecha
     * **Técnicas:** `DecisionTreeClassifier`, `RandomForestClassifier`, comparación de métricas, interpretabilidad, robustez y sobreajuste.
     * **Puntos Clave:** Discusión detallada de las ventajas y desventajas de cada modelo, ayudando a decidir cuál usar según el contexto del problema.
 
+### 3. Sistemas Neuro-Fuzzy (Híbrido con `scikit-fuzzy` y `scikit-learn`)
+
+* **`Ejemplo_neuro_fuzzy_A_funciones.ipynb`**
+    * **Descripción:** Implementa un sistema híbrido "Neuro-Fuzzy" para aproximación de funciones (regresión) usando datos sintéticos 1D. Las funciones de pertenencia de las premisas son fijas (definidas con `scikit-fuzzy`) y los parámetros de los consecuentes de las reglas Sugeno de primer orden se aprenden mediante regresión lineal (con `scikit-learn`).
+    * **Dataset:** Sintético 1D para regresión.
+    * **Técnicas:** Lógica Difusa (`scikit-fuzzy` para MFs), Regresión Lineal (`scikit-learn` para aprender consecuentes), Sistemas de Inferencia Sugeno, Aproximación de Funciones.
+    * **Puntos Clave:** Combinación de `scikit-fuzzy` y `scikit-learn` para crear un sistema adaptativo, definición de MFs fijas, formulación del aprendizaje de consecuentes como un problema de regresión, visualización de la función aprendida. Este enfoque evita dependencias de bibliotecas ANFIS especializadas que pueden ser inestables.
+
 ## Requisitos
 
 Para ejecutar estos ejemplos, necesitará tener Python 3 instalado, junto con las siguientes bibliotecas principales:
@@ -86,7 +94,7 @@ Para ejecutar estos ejemplos, necesitará tener Python 3 instalado, junto con la
 * `numpy`
 * `pandas`
 * `scikit-learn`
-* `scikit-fuzzy` (para los ejemplos de lógica difusa)
+* `scikit-fuzzy`
 * `matplotlib`
 * `seaborn`
 * `jupyter` (si desea trabajar con los archivos `.ipynb` o convertir los `.py` a formato notebook)
