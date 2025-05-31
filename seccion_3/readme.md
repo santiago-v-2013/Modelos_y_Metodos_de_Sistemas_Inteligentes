@@ -1,11 +1,80 @@
-# Sección 3: Redes Neuronales Convolucionales (CNN) y Recurrentes (RNN)
+# Sección de Ejemplos: Preprocesamiento de Datos y Modelos de Redes Neuronales
+
+En este repositorio, encontrarás ejemplos prácticos sobre diversas técnicas de preprocesamiento de datos para imágenes, texto y series temporales, así como implementaciones de Redes Neuronales Convolucionales (CNN) para clasificación de imágenes y Redes Neuronales Recurrentes (RNN) para previsión de series temporales. Se utilizan bibliotecas populares como OpenCV, Pillow, NLTK, Pandas, Keras (TensorFlow) y PyTorch. Estos notebooks y scripts están diseñados para facilitar la comprensión del código y su ejecución.
+
+---
+
+## Sección 1: Preprocesamiento de Datos
+
+Esta sección contiene ejemplos prácticos de técnicas de preprocesamiento para diferentes tipos de datos. Los scripts están diseñados para ilustrar los pasos comunes y fundamentales en la preparación de datos para análisis y modelado.
+
+### Contenido
+
+1.  [Ejemplo_Preprocesamiento_Imagenes.py](Ejemplo_Preprocesamiento_Imagenes.py)
+2.  [Ejemplo_Preprocesamiento_Texto_NLP.py](Ejemplo_Preprocesamiento_Texto_NLP.py)
+3.  [Ejemplo_Preprocesamiento_Series_Temporales.py](Ejemplo_Preprocesamiento_Series_Temporales.py)
+
+---
+
+### Ejemplo 1: Preprocesamiento de Imágenes
+
+#### Descripción
+
+Este script demuestra varias técnicas comunes de preprocesamiento de imágenes utilizando bibliotecas como OpenCV y Pillow. Se aplica cada técnica a una imagen de ejemplo (cargada localmente o desde el dataset CIFAR-10) y se visualizan los resultados para facilitar la comprensión de su efecto.
+
+#### Técnicas Demostradas
+
+* **Carga y Conversión de Espacios de Color**: Incluye la carga de imágenes y su conversión a diferentes espacios de color como escala de grises y HSV.
+* **Redimensionamiento y Recorte**: Métodos para ajustar las dimensiones de las imágenes y seleccionar regiones de interés.
+* **Normalización de Píxeles y Ecualización de Histograma**: Técnicas para estandarizar el rango de intensidad de los píxeles y mejorar el contraste de la imagen.
+* **Aplicación de Filtros**: Uso de filtros para suavizado, reducción de ruido y detección de bordes, como el Desenfoque Gaussiano, Desenfoque de Mediana, Filtro Bilateral y Filtro Laplaciano.
+* **Aumentación de Datos Básica**: Técnicas simples para incrementar artificialmente la diversidad del conjunto de datos, como volteo, rotación y adición de ruido.
+
+---
+
+### Ejemplo 2: Preprocesamiento de Texto para PNL
+
+#### Descripción
+
+Este script ilustra pasos fundamentales de preprocesamiento de texto específicos para tareas de Procesamiento del Lenguaje Natural (PNL). Se utilizan principalmente las bibliotecas NLTK y TextBlob, aplicando las técnicas a cadenas de texto de ejemplo para mostrar su funcionamiento.
+
+#### Técnicas Demostradas
+
+* **Conversión a Minúsculas**: Estandarización del texto a minúsculas.
+* **Eliminación de Elementos Irrelevantes**: Limpieza de etiquetas HTML, URLs y signos de puntuación.
+* **Tratamiento de Palabras de Chat**: Conversión de jerga o abreviaturas comunes en chats a sus formas completas.
+* **Corrección Ortográfica**: Uso de TextBlob para corregir errores de ortografía.
+* **Eliminación de Palabras Vacías (Stop Words)**: Filtrado de palabras comunes con poco valor semántico.
+* **Manejo de Emojis**: Técnica para eliminar emojis del texto.
+* **Tokenización**: División del texto en unidades más pequeñas (palabras y frases).
+* **Derivación (Stemming)**: Reducción de palabras a su forma raíz.
+* **Lematización (Lemmatization)**: Reducción de palabras a su forma base significativa (lemma).
+
+---
+
+### Ejemplo 3: Preprocesamiento de Series Temporales
+
+#### Descripción
+
+Este script se enfoca en las técnicas de preprocesamiento específicas para datos de series temporales, utilizando Pandas para la manipulación de datos y Matplotlib para la visualización. Se emplea el dataset "Air Passengers" (o un conjunto de datos sintético como alternativa) para demostrar los métodos.
+
+#### Técnicas Demostradas
+
+* **Estructuración de Datos de Series Temporales**: Conversión de campos de fecha al formato datetime, ordenación cronológica de los datos y establecimiento de la fecha como índice del DataFrame.
+* **Imputación de Valores Faltantes**: Relleno de datos ausentes utilizando métodos de interpolación apropiados para series temporales (lineal, spline, basada en tiempo), demostrado sobre valores faltantes introducidos artificialmente.
+* **Eliminación de Ruido (Suavizado)**: Aplicación de medias móviles (rolling means) con diferentes tamaños de ventana para suavizar la serie y reducir fluctuaciones aleatorias.
+* **Detección de Valores Atípicos (Outliers)**: Identificación de observaciones anómalas utilizando bandas estadísticas móviles (media móvil ± k * desviación estándar móvil), demostrado sobre outliers introducidos artificialmente.
+
+---
+
+## Sección 2: Redes Neuronales Convolucionales (CNN) y Recurrentes (RNN)
 
 En esta sección, encontrarás ejemplos prácticos sobre cómo implementar Redes Neuronales Convolucionales (CNN) para clasificación de imágenes y Redes Neuronales Recurrentes (RNN) para previsión de series temporales. Se utilizan las bibliotecas Keras (TensorFlow) y PyTorch. Estos notebooks están diseñados para facilitar la comprensión del código y su ejecución.
 
-## Contenido
+### Contenido
 
-1.  [Ejemplo_con_Keras_CNN_para_clasificación.ipynb](Ejemplo_con_Keras_CNN_para_clasificación.ipynb)
-2.  [Ejemplo_con_pytorch_CNN_para_clasificación.ipynb](Ejemplo_con_pytorch_CNN_para_clasificación.ipynb)
+1.  [Ejemplo_con_Keras_CNN_para_clasificacion.ipynb](Ejemplo_con_Keras_CNN_para_clasificacion.ipynb)
+2.  [Ejemplo_con_pytorch_CNN_para_clasificacion.ipynb](Ejemplo_con_pytorch_CNN_para_clasificacion.ipynb)
 3.  [Ejemplo_con_Keras_RNN_para_prevision.ipynb](Ejemplo_con_Keras_RNN_para_prevision.ipynb)
 4.  [Ejemplo_con_pytorch_RNN_para_prevision.ipynb](Ejemplo_con_pytorch_RNN_para_prevision.ipynb)
 
@@ -92,7 +161,7 @@ Este notebook adapta el problema de clasificación de imágenes (dataset "Piedra
     import torch.optim as optim
     from torch.utils.data import DataLoader, Dataset
     from torchvision import transforms, datasets
-    import tensorflow_datasets as tfds
+    import tensorflow_datasets as tfds # Para cargar el dataset
     import numpy as np
     import matplotlib.pyplot as plt
     ```
@@ -115,17 +184,29 @@ Este notebook adapta el problema de clasificación de imágenes (dataset "Piedra
             self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1)
             self.relu = nn.ReLU()
             self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-            # ... más capas ...
-            self.fc = nn.Linear(CONFIG_MODELO_SIMPLE['fc_in_features'], num_classes)
+            # ... más capas convolucionales y de pooling ...
+            # self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
+            # self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+            self.flatten = nn.Flatten()
+            # El tamaño de entrada a la capa fc dependerá de la salida de las capas anteriores
+            # Ejemplo: para (150,150,3) -> (N, 128, 18, 18) después de 3 pooling layers (150/2/2/2 = 18.75 ~ 18)
+            # fc_in_features = 128 * 18 * 18 # Esto debe calcularse correctamente
+            self.fc1 = nn.Linear(CONFIG_MODELO_SIMPLE['fc_in_features'], 512) # Usar un valor precalculado o dinámico
+            self.dropout = nn.Dropout(0.5)
+            self.fc2 = nn.Linear(512, num_classes)
 
         def forward(self, x):
             x = self.pool(self.relu(self.conv1(x)))
-            # ... más pasadas ...
-            x = x.view(x.size(0), -1) # Aplanar
-            x = self.fc(x)
+            # ... más pasadas por capas conv/relu/pool ...
+            # x = self.pool(self.relu(self.conv2(x)))
+            # x = self.pool(self.relu(self.conv3(x)))
+            x = self.flatten(x)
+            x = self.relu(self.fc1(x))
+            x = self.dropout(x)
+            x = self.fc2(x)
             return x
     ```
-    - La CNN se define como una clase que hereda de `nn.Module`, con capas definidas en `__init__` y la lógica de propagación hacia adelante en el método `forward`.
+    - La CNN se define como una clase que hereda de `nn.Module`, con capas definidas en `__init__` y la lógica de propagación hacia adelante en el método `forward`. (Nota: el código de la arquitectura es un esqueleto y necesitaría completarse/ajustarse).
 
 4.  **Entrenar el Modelo**:
     ```python
@@ -279,6 +360,6 @@ Este notebook aborda la tarea de previsión de series temporales (dataset "Air P
 
 ---
 
-## Conclusión
+## Conclusión General
 
-Estos notebooks proporcionan ejemplos detallados y prácticos para comenzar a trabajar con Redes Neuronales Convolucionales para clasificación de imágenes y Redes Neuronales Recurrentes para previsión de series temporales, utilizando tanto Keras como PyTorch. Permiten comparar los enfoques y la sintaxis de ambas bibliotecas para tareas similares.
+Estos notebooks y scripts proporcionan ejemplos detallados y prácticos para comenzar a trabajar con preprocesamiento de datos y la implementación de Redes Neuronales Convolucionales y Recurrentes, utilizando tanto Keras como PyTorch. Permiten comparar los enfoques y la sintaxis de ambas bibliotecas para tareas similares y fundamentales en el campo del Machine Learning y Deep Learning.
