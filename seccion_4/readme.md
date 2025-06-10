@@ -125,6 +125,60 @@ Este notebook demuestra cómo manejar un problema de minimización con restricci
 
 ---
 
+## Sección 2: Optimización por Enjambre de Partículas (PSO)
+
+Esta sección se centra en el uso del algoritmo de Optimización por Enjambre de Partículas (PSO), otra potente metaheurística para resolver problemas de optimización. Los ejemplos muestran cómo implementar PSO utilizando la librería DEAP.
+
+### Contenido
+
+1.  [Ejemplo_1_particle_swarm_optimization.ipynb](Ejemplo_1_particle_swarm_optimization.ipynb)
+2.  [Ejemplo_2_particle_swarm_optimization.ipynb](Ejemplo_2_particle_swarm_optimization.ipynb)
+
+---
+
+### Ejemplo 4: Maximización de Área con Restricción Lineal (PSO)
+
+#### Descripción
+
+Este notebook utiliza el algoritmo PSO para maximizar el área de un terreno rectangular (`Área = x * y`) con un presupuesto limitado para la valla (`Perímetro = 2x + y ≤ 500`). Es un problema de maximización con una restricción lineal.
+
+#### Pasos Clave del Notebook
+
+* **Definición del Problema**: Maximizar `f(x, y) = x * y` sujeto a `2x + y ≤ 500`.
+* **Configuración de PSO en DEAP**:
+    * Se crea un tipo `Particle` que hereda de una lista y tiene atributos como `speed`, `pbest` (mejor posición personal) y `sbest` (mejor velocidad).
+    * La `Toolbox` se configura para generar partículas y registrar el operador `update`, que es el núcleo del PSO y se encarga de actualizar la velocidad y posición de las partículas.
+    ```python
+    # Registrar la función de actualización de partículas (núcleo de PSO)
+    toolbox.register("update", pso.generate, smin=smin, smax=smax)
+    ```
+* **Manejo de Restricciones**: Se utiliza una función de factibilidad y una de penalización, similar a los ejemplos de algoritmos genéticos, para guiar al enjambre hacia la región factible.
+* **Ejecución y Resultados**: El algoritmo se ejecuta durante un número de generaciones, y al final se muestra el área máxima obtenida y las dimensiones `x` e `y` óptimas.
+
+---
+
+### Ejemplo 5: Maximización de Volumen con Restricción de Igualdad (PSO)
+
+#### Descripción
+
+Este ejemplo aborda un problema de ingeniería clásico: determinar las dimensiones de una caja con base cuadrada que maximicen su volumen, utilizando una cantidad fija de material (10 m²). Esto se traduce en una restricción de igualdad no lineal (`Área = x² + 4xh = 10`).
+
+#### Pasos Clave del Notebook
+
+* **Planteamiento del Problema**: Maximizar `Volumen = x² * h` sujeto a la restricción de área `x² + 4xh = 10`.
+* **Manejo de la Restricción de Igualdad**: La función de factibilidad se adapta para manejar una restricción de igualdad, permitiendo una pequeña tolerancia para considerarla cumplida.
+    ```python
+    def feasible(individual):
+        x, h = individual
+        area = x**2 + 4 * x * h
+        # Permitir una pequeña tolerancia para la restricción de igualdad
+        return abs(area - 10.0) < 1e-6
+    ```
+* **Configuración de PSO**: La configuración es análoga al ejemplo anterior, definiendo partículas, límites de velocidad y la función de actualización.
+* **Ejecución y Resultados**: El algoritmo PSO encuentra las dimensiones `x` y `h` que maximizan el volumen de la caja sin exceder el material disponible. Se imprime el volumen máximo y las dimensiones óptimas.
+
+---
+
 ## Conclusión General
 
-Estos notebooks proporcionan ejemplos detallados y prácticos para empezar a trabajar con la librería DEAP. Demuestran su flexibilidad para manejar diferentes tipos de problemas de optimización, incluyendo escenarios no restringidos, con restricciones lineales y no lineales, lo que la convierte en una herramienta poderosa para resolver problemas complejos con computación evolutiva.
+Estos notebooks proporcionan ejemplos detallados y prácticos para comenzar a trabajar tanto con Algoritmos Genéticos como con Optimización por Enjambre de Partículas usando la librería DEAP. Demuestran su flexibilidad para manejar diferentes tipos de problemas y restricciones, convirtiéndola en una herramienta poderosa para resolver problemas complejos con computación evolutiva.
