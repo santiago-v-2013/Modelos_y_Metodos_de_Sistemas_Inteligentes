@@ -1,0 +1,3 @@
+# Ignorar los archivos en la carpeta data de la sección 4
+seccion_4/data/*
+!seccion_4/data/.gitkeep
